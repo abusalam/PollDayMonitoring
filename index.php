@@ -73,6 +73,12 @@
                     animation: google.maps.Animation.DROP,
                     icon: gMarkerHome
                 });
+                marker = new google.maps.Marker({
+                    position: Home,
+                    map: map,
+                    draggable: false,
+                    animation: google.maps.Animation.DROP
+                });
                 google.maps.event.addListener(marker, 'click', toggleBounce);
             }
 
@@ -90,7 +96,7 @@
                     map: map,
                     draggable: false,
                     animation: google.maps.Animation.DROP,
-                    icon: gMarkerIcon
+                    icon: 'http://10.173.168.128/PollDayMonitoring/Marker.php?PSNo=300&Color=FF0000'
                 });
                 //markers.push(marker);
 
@@ -109,8 +115,32 @@
         </script>
     </head>
     <body>
-        <div id="panel" style="margin-left: -52px">
-            <button id="drop" onclick="drop()">Drop Markers</button>
+        <div id="panel">
+            <div style="float:left;">
+                <label for="pc">
+                    <span>PC:</span>
+                    <select name="pc" id="pc" style="width:150px">
+                        <option value="%" selected>--Please select--</option>
+                        <option value="33" >33-Jhargram</option>
+                        <option value="34" >34-Medinipur</option>
+                        <option value="32" >32-Ghatal</option>
+                    </select>
+                </label>
+            </div>
+            <div style="float:left;">
+                <label for="ac">
+                    <span>AC:</span>
+                    <select name="ac" id="ac" style="width:150px">
+                        <option value="%" selected>-- Please Select --</option>
+                    </select>
+                </label>
+            </div>
+            <button id="drop" onclick="drop()">Show</button>
+            <button id="hide" >Hide</button><hr style="clear: both;"/>
+            <label for="drop2">Filter:</label>
+            <button id="drop2" onclick="drop()">Critical</button>
+            <button id="drop3" onclick="drop()">Mobile Shadow Zone</button>
+            <button id="drop4" onclick="drop()">Vulnerable</button>
         </div>
         <div id="map-canvas"></div>
     </body>
