@@ -23,6 +23,9 @@
 
         </style>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
         <script>
             var map;
             var gMarkerIcon = {
@@ -98,7 +101,7 @@
                     animation: google.maps.Animation.DROP,
                     icon: 'http://10.173.168.128/PollDayMonitoring/Marker.php?PSNo=300&Color=FF0000'
                 });
-                //markers.push(marker);
+                markers.push(marker);
 
                 iterator++;
             }
@@ -111,6 +114,11 @@
                 }
             }
 
+            function RemoveMarkers() {
+                for (var i = 0; i < markers.length; i++) {
+                    markers[i].setMap(null);
+                }
+            }
             google.maps.event.addDomListener(window, 'load', initialize);
         </script>
     </head>
@@ -136,12 +144,20 @@
                 </label>
             </div>
             <button id="drop" onclick="drop()">Show</button>
-            <button id="hide" >Hide</button><hr style="clear: both;"/>
-            <label for="drop2">Filter:</label>
-            <button id="drop2" onclick="drop()">Critical</button>
-            <button id="drop3" onclick="drop()">Mobile Shadow Zone</button>
-            <button id="drop4" onclick="drop()">Vulnerable</button>
+            <button id="hide" onclick="RemoveMarkers()">Remove</button>
+            <hr style="clear: both;"/>
+            <div id="filters">
+                <input type="checkbox" id="Critical">
+                <label for="Critical">Critical</label>
+                <input type="checkbox" id="MSZ">
+                <label for="MSZ">Mobile Shadow Zone</label>
+                <input type="checkbox" id="Vulnerable">
+                <label for="Vulnerable">Vulnerable</label>
+            </div>
         </div>
         <div id="map-canvas"></div>
+        <script>
+            $("#filters").buttonset();
+        </script>
     </body>
 </html>
