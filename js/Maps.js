@@ -18,8 +18,7 @@ var gMarkerIcon = {
 };
 var markers = [];
 var iterator = 0;
-var marker;
-
+var markerCluster;
 var PaschimMedinipur = new google.maps.LatLng(22.424, 87.319);
 var Home = new google.maps.LatLng(22.441505, 87.317073);
 var DataPS = [];
@@ -33,46 +32,41 @@ function initialize() {
 
     map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
-    marker = new google.maps.Marker({
-        position: Home,
-        map: map,
-        draggable: false,
-        animation: google.maps.Animation.DROP,
-        icon: gMarkerHome
-    });
-    marker = new google.maps.Marker({
-        position: Home,
-        map: map,
-        draggable: false,
-        animation: google.maps.Animation.DROP
-    });
-    google.maps.event.addListener(marker, 'click', toggleBounce);
+    markerCluster = new MarkerClusterer(map);
+    markerCluster.setMaxZoom(12);
 }
 
 function drop() {
     for (var i = 0; i < neighborhoods.length; i++) {
         setTimeout(function() {
             addMarker();
-        }, i * 200);
+        }, i * 10);
     }
 }
 
 function addMarker() {
-    marker = new google.maps.Marker({
+    var marker = new google.maps.Marker({
         position: neighborhoods[iterator],
         map: map,
         draggable: false,
-        animation: google.maps.Animation.DROP,
+        title: '[AC:' + DataPS[iterator].ACNo + '-PS:' + DataPS[iterator].PSNo + ']-'
+                + DataPS[iterator].PSName,
+        //animation: google.maps.Animation.DROP,
         icon: 'Marker.php?PSNo=' + DataPS[iterator].PSNo
                 + '&ColorAC=' + Colors[((DataPS[iterator].ACNo - 219) % 9)][0]
                 + '&ColorPS=' + Colors[((DataPS[iterator].ACNo - 219) % 9)][1]
     });
-    markers.push(marker);
 
+    google.maps.event.addListener(marker, 'click', function() {
+        toggleBounce(marker);
+    });
+
+    markers.push(marker);
+    markerCluster.addMarker(marker);
     iterator++;
 }
 
-function toggleBounce() {
+function toggleBounce(marker) {
     if (marker.getAnimation() !== null) {
         marker.setAnimation(null);
     } else {

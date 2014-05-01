@@ -16,7 +16,7 @@ if (!isset($_SESSION)) {
         <link rel="stylesheet" href="css/MapUI.css" />
         <script src="js/Maps.js"></script>
         <script src="js/DataPS.js"></script>
-
+        <script src="js/markerclusterer.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="panel">
@@ -38,11 +38,11 @@ if (!isset($_SESSION)) {
             <button id="RemovePS" >Remove</button>
             <hr style="clear: both;"/>
             <div id="filters">
-                <input type="checkbox" id="Critical">
+                <input type="checkbox" id="Critical" value="1">
                 <label for="Critical">Critical</label>
-                <input type="checkbox" id="MSZ">
+                <input type="checkbox" id="MSZ" value="1">
                 <label for="MSZ">Mobile Shadow Zone</label>
-                <input type="checkbox" id="Vulnerable">
+                <input type="checkbox" id="Vulnerable" value="1">
                 <label for="Vulnerable">Vulnerable</label>
                 <?php
                 $_SESSION['AjaxToken'] = md5($_SERVER['REMOTE_ADDR'] . session_id() . time());

@@ -12,4 +12,5 @@ html, body, #map-canvas {
     background-color: #fff;
     padding: 5px;
     border: 1px solid #999;
+    overflow: hidden;
 }

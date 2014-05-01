@@ -34,10 +34,29 @@ if (WebLib::GetVal($_POST, 'AjaxToken') === WebLib::GetVal($_SESSION, 'AjaxToken
 
         case 'GetPSs':
             $_SESSION['POST'] = $_POST;
-            $Query = 'Select  `ACNo`, `PSNo`, `PSName`, `Lat`, `Lng`, `Critical` '
-              . ' From `' . MySQL_Pre . 'AllData` Where `PCNo`=? AND `ACNo`=?';
+            $Condition = '';
+            $Params = array();
+            array_push($Params, WebLib::GetVal($_POST, 'PCNo'));
+
+            if (WebLib::GetVal($_POST, 'ACNo') !== '%') {
+                $Condition = $Condition . ' AND `ACNo`=?';
+                array_push($Params, WebLib::GetVal($_POST, 'ACNo'));
+            }
+
+            if (WebLib::GetVal($_POST, 'Critical') === '1') {
+                $Condition = $Condition . ' AND `Critical`>?';
+                array_push($Params, 0);
+            }
+            $Query = 'Select distinct `ACNo`, `PSNo`, `PSName`, `Lat`, `Lng`, `Critical` '
+              . ' From `' . MySQL_Pre . 'AllData` Where `PCNo`=? ' . $Condition;
             $DataResp['PSs'] = array();
-            doQuery($DataResp['PSs'], $Query, array(WebLib::GetVal($_POST, 'PCNo'), WebLib::GetVal($_POST, 'ACNo')));
+            doQuery($DataResp['PSs'], $Query, $Params);
+
+//            $Query = 'Select MIN(`Lat`) as `SWLat`, MIN(`Lng`) as `SWLng`,'
+//              . ' MAX(`Lat`) as `NELat`, MAX(`Lng`) as `NELng` '
+//              . ' From `' . MySQL_Pre . 'AllData` ';
+//            $DataResp['Bounds'] = array();
+//            doQuery($DataResp['Bounds'], $Query, $Params);
             break;
     }
     $_SESSION['LifeTime'] = time();
@@ -76,4 +95,5 @@ function doQuery(&$DataResp, $Query, $Params = NULL) {
     unset($Result);
     unset($Data);
 }
+
 ?>

@@ -33,6 +33,8 @@ $(function() {
         $('#Msg').html(msg);
     });
 
+    $('#panel').resizable().draggable();
+
     $('#PC').change(function() {
         $("#Msg").hide();
         $("#example_wrapper").hide();
@@ -58,7 +60,8 @@ $(function() {
                 'AjaxToken': $('#AjaxToken').val(),
                 'CallAPI': 'GetPSs',
                 'PCNo': $('#PC').val(),
-                'ACNo': $('#AC').val()
+                'ACNo': $('#AC').val(),
+                'Critical': $('#Critical').filter(':checked').val()
             }
         }).done(function(DataResp) {
             try {
