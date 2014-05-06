@@ -9,7 +9,7 @@ if (typeof (EventSource) !== "undefined")
     $('#Msg').html(DataResp.Data);
     $('#ED').html(DataResp.RT);
     if ($('#SentList li').size() > 15) {
-      $('#SentList li').slice(0, 5).remove();
+      $('#SentList li').slice(0, 12).remove();
     }
     var d = new Date();
     $.each(DataResp.Data,

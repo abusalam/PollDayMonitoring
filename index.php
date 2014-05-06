@@ -44,6 +44,8 @@ if (!isset($_SESSION)) {
         <label for="MSZ">Mobile Shadow Zone</label>
         <input type="checkbox" id="Vulnerable" value="1">
         <label for="Vulnerable">Vulnerable</label>
+        <input type="checkbox" id="EnableCluster" value="1">
+        <label for="EnableCluster">Clustered</label>
         <?php
         $_SESSION['AjaxToken'] = md5($_SERVER['REMOTE_ADDR'] . session_id() . time());
         ?>

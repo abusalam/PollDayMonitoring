@@ -25,7 +25,7 @@ $DataResp['Msg'] = '';
 
 $_SESSION['POST'] = $_POST;
 $Query = 'Select `PerCode`, `name`, `phone_no`, `message`,`MessageSent`'
-        . ' From `ppds`.`tblsms` Where `MessageSent`=0 limit 2';
+        . ' From `ppds`.`tblsms` Where `MessageSent`=0 limit 10';
 $PPs = array();
 doQuery($PPs, $Query);
 $DataResp['Data'] = array();
