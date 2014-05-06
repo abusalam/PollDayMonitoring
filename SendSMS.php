@@ -12,11 +12,8 @@ if (!isset($_SESSION)) {
     <script src="js/jquery.min.js"></script>
     <link rel="stylesheet" href="js/jquery-ui.css" />
     <script src="js/jquery-ui.min.js"></script>
-    <script src="js/DataPS.js"></script>
   </head>
   <body>
-    <button id="SendSMS" >Send SMS</button>
-    <button id="ClearData" >Clear List</button>
     <hr style="clear: both;"/>
     <?php
     $_SESSION['AjaxToken'] = md5($_SERVER['REMOTE_ADDR'] . session_id() . time());
@@ -31,6 +28,6 @@ if (!isset($_SESSION)) {
       <span id="ED"></span>
     </div>
   </div>
-  <div id="map-canvas"></div>
+  <script src="js/SendSMS.js"></script>
 </body>
 </html>
